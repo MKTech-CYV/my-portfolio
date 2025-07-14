@@ -11,4 +11,5 @@ export { CustomMDX } from "@/components/mdx";
 export { Analytics } from "@/components/Analytics";
 export { ContactForm } from "@/components/ContactForm";
 export { OrganizationSchema } from "@/components/OrganizationSchema";
+export { ProjectSchema } from "@/components/ProjectSchema";
 export { Breadcrumbs } from "@/components/Breadcrumbs";
