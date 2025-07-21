@@ -5,7 +5,7 @@ import '@/resources/custom.css'
 import classNames from "classnames";
 
 import { Background, Column, Flex, Meta, opacity, SpacingToken } from "@once-ui-system/core";
-import { Footer, Header, RouteGuard, Providers, Analytics, OrganizationSchema } from '@/components';
+import { Footer, Header, RouteGuard, Providers, Analytics, OrganizationSchema, CustomStyles } from '@/components';
 import { baseURL, effects, fonts, style, dataStyle, home } from '@/resources';
 
 export async function generateMetadata() {
@@ -322,6 +322,7 @@ export default async function RootLayout({
         
         <Analytics />
         <OrganizationSchema />
+        <CustomStyles />
       </head>
       <Providers>
         <Column as="body" background="page" fillWidth style={{minHeight: "100vh"}} margin="0" padding="0" horizontal="center">
@@ -374,8 +375,9 @@ export default async function RootLayout({
               padding="l"
               horizontal="center"
               flex={1}
+              style={{ display: "flex", flexDirection: "column", flexGrow: 1, minHeight: 0 }}
             >
-              <Flex horizontal="center" fillWidth minHeight="0">
+              <Flex horizontal="center" fillWidth minHeight="0" style={{ flex: "1 0 auto" }}>
                 <RouteGuard>
                   {children}
                 </RouteGuard>

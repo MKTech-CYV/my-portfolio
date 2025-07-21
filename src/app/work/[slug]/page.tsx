@@ -120,7 +120,7 @@ export default async function Project({
     })) || [];
 
   return (
-    <Column as="section" maxWidth="m" horizontal="center" gap="l">
+    <Column as="section" maxWidth="m" horizontal="center" gap="l" style={{ minHeight: "initial", marginBottom: "2rem" }}>
       <Schema
         as="webPage"
         baseURL={baseURL}

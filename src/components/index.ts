@@ -1,5 +1,3 @@
-export { Header } from "@/components/Header";
-export { Footer } from "@/components/Footer";
 export { Mailchimp } from "@/components/Mailchimp";
 export { ProjectCard } from "@/components/ProjectCard";
 export { HeadingLink } from "@/components/HeadingLink";
@@ -9,7 +7,10 @@ export { ScrollToHash } from "@/components/ScrollToHash";
 export { ThemeToggle } from "@/components/ThemeToggle";
 export { CustomMDX } from "@/components/mdx";
 export { Analytics } from "@/components/Analytics";
+export { Header } from "@/components/Header";
+export { Footer } from "@/components/Footer";
 export { ContactForm } from "@/components/ContactForm";
 export { OrganizationSchema } from "@/components/OrganizationSchema";
 export { ProjectSchema } from "@/components/ProjectSchema";
 export { Breadcrumbs } from "@/components/Breadcrumbs";
+export { CustomStyles } from "@/components/CustomStyles";
