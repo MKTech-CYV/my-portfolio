@@ -24,8 +24,8 @@ export function ProjectSchema({
   team, 
   link 
 }: ProjectSchemaProps) {
-  const projectUrl = `${baseURL}/work/${slug}`;
-  
+  const projectUrl = `${baseURL}/projects/${slug}`;
+
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -131,7 +131,7 @@ export function ProjectSchema({
             "@type": "ListItem",
             "position": 2,
             "name": "Projects",
-            "item": `${baseURL}/work`
+            "item": `${baseURL}/projects`
           },
           {
             "@type": "ListItem",

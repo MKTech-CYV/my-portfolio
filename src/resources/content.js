@@ -65,7 +65,7 @@ const home = {
         Recent project: <strong className="ml-4">PHATDAT eCITIZEN</strong>
       </>
     ),
-    href: "/work/phat-dat-ecitizen",
+    href: "/projects/phat-dat-ecitizen",
   },
   subline: (
     <>
@@ -271,8 +271,8 @@ const blog = {
 };
 
 const work = {
-  path: "/work",
-  label: "Work",
+  path: "/projects",
+  label: "Projects",
   title: `Projects – ${person.name}`,
   description: `Design and dev projects by ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/blog/posts

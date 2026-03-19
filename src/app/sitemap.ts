@@ -14,8 +14,8 @@ export default async function sitemap() {
     })) || []
   }));
 
-  const works = getPosts(["src", "app", "work", "projects"]).map((post) => ({
-    url: `${baseURL}/work/${post.slug}`,
+  const works = getPosts(["src", "app", "projects", "projects"]).map((post) => ({
+    url: `${baseURL}/projects/${post.slug}`,
     lastModified: post.metadata.publishedAt,
     changeFrequency: 'monthly' as const,
     priority: 0.8,
@@ -36,7 +36,7 @@ export default async function sitemap() {
     if (route === '/') {
       priority = 1.0;
       changeFrequency = 'weekly';
-    } else if (route === '/work') {
+    } else if (route === '/projects') {
       priority = 0.9;
       changeFrequency = 'weekly';
     } else if (route === '/contact') {

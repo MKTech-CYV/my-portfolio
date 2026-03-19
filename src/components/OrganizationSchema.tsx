@@ -56,7 +56,7 @@ export function OrganizationSchema() {
         },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": `${baseURL}/work?q={search_term_string}`,
+          "target": `${baseURL}/projects?q={search_term_string}`,
           "query-input": "required name=search_term_string"
         },
         "inLanguage": ["en", "vi"]

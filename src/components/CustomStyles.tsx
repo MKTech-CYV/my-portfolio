@@ -17,7 +17,7 @@ export const CustomStyles = () => {
       }
       
       /* Fix for project pages to prevent footer from showing in the middle */
-      [data-path^="/work/"] {
+      [data-path^="/projects/"] {
         min-height: auto !important;
         margin-bottom: 3rem;
       }
