@@ -109,6 +109,7 @@ const about = {
     experiences: [
       {
         company: "PHAT DAT HOLDINGS",
+        companyLink: "https://phatdatholdings.com.vn",
         timeframe: "8/2024 - Present",
         role: "Mobile & Web Developer",
         achievements: [

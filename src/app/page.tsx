@@ -231,7 +231,13 @@ export default function About() {
                       marginBottom="4"
                     >
                       <Text id={experience.company} variant="heading-strong-l">
-                        {experience.company}
+                        {experience.companyLink ? (
+                          <a href={experience.companyLink} target="_blank" rel="noopener noreferrer">
+                            {experience.company}
+                          </a>
+                        ) : (
+                          experience.company
+                        )}
                       </Text>
                       <Text
                         variant="heading-default-xs"
