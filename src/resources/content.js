@@ -32,7 +32,7 @@ const social = [
   {
     name: "Phone",
     icon: "phone",
-    link: "tel:+84906888888",
+    link: "tel:+84988204060",
   },
   {
     name: "LinkedIn",
@@ -96,10 +96,7 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        I'm a Vietnam-based mobile and web developer passionate about crafting
-        seamless, high-performance applications. I specialize in building
-        intuitive user experiences, bridging design and technology across
-        platforms with modern tools and frameworks.
+        Mobile & Web Developer based in Vietnam, focused on building high-performance, user-centric applications. I bridge design and technology to deliver seamless experiences across platforms.
       </>
     ),
   },
@@ -376,7 +373,6 @@ const contact = {
       "UI/UX Design (Figma)",
       "Database Design & Optimization (MySQL, PostgreSQL)",
       "SEO Optimization",
-      "IT Support",
       "Office 365 Administration",
       "Graphic Design (Photoshop, Illustrator, After Effects, Canva)"
     ],
@@ -400,7 +396,7 @@ const eCard = {
   contact: {
     name: person.name,
     email: person.email,
-    phone: "0988204060",
+    phone: "+84 988 204 060",
     location: "Ho Chi Minh City, Vietnam",
   },
 };

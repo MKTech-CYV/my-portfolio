@@ -9,13 +9,55 @@ import {
   Icon,
   IconButton,
   Text,
-  Tag,
 } from "@once-ui-system/core";
 import { person, contact, social, newsletter, baseURL } from "@/resources";
 import { Mailchimp } from "@/components";
 import { trackContactForm, trackExternalLink } from "@/utils/analytics";
 
+const sanitizePhoneNumber = (phone: string) => phone.replace(/[^+0-9]/g, "");
+
+const formatPhoneNumber = (phone: string) => {
+  const cleaned = sanitizePhoneNumber(phone);
+  if (cleaned.startsWith("+84") && cleaned.length === 12) {
+    return `+84 ${cleaned.slice(3, 6)} ${cleaned.slice(6, 9)} ${cleaned.slice(9, 12)}`;
+  }
+  return cleaned;
+};
+
 export function ContactForm() {
+  const linkedInUrl = social.find((item) => item.name === "LinkedIn")?.link;
+  const phoneRaw = social.find((item) => item.name === "Phone")?.link?.replace("tel:", "") || "";
+  const phone = sanitizePhoneNumber(phoneRaw);
+  const phoneDisplay = formatPhoneNumber(phoneRaw);
+
+  const handleSaveContact = () => {
+    const vCard = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      `FN:${person.name}`,
+      `N:${person.lastName};${person.firstName};;;`,
+      `TITLE:${person.role}`,
+      `EMAIL;TYPE=INTERNET:${person.email}`,
+      phone ? `TEL;TYPE=CELL:${phone}` : "",
+      `ADR;TYPE=WORK:;;${person.location};;;;`,
+      `URL:${baseURL}`,
+      "END:VCARD",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const blob = new Blob([vCard], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${person.name.toLowerCase().replace(/\s+/g, "-")}.vcf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    trackContactForm("save-contact");
+  };
+
   // FAQ Schema for better SEO
   const faqSchema = {
     "@context": "https://schema.org",
@@ -58,134 +100,165 @@ export function ContactForm() {
 
   return (
     <>
-      {/* FAQ Schema for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      
-      <Heading marginBottom="l" variant="display-strong-s">
-        {contact.intro.title}
-      </Heading>
-      
-      {contact.intro.display && (
-        <Text variant="body-default-l" onBackground="neutral-weak" marginBottom="xl">
-          {contact.intro.description}
-        </Text>
-      )}
 
-      <Flex direction="column" gap="xl" marginBottom="xl">
-        {/* Contact Information */}
-        <Column gap="l">
-          <Flex fillWidth direction="column" gap="m">
-            <Avatar src={person.avatar} size="l" />
-            <Column gap="s">
-              <Heading variant="heading-strong-m">{person.name}</Heading>
+      <Column gap="xl" marginBottom="xl">
+        <Column
+          className="contact-hero-card"
+          gap="m"
+          border="neutral-alpha-weak"
+          background="page"
+          radius="l"
+          padding="l"
+          shadow="m"
+        >
+          <Flex fillWidth vertical="center" wrap gap="m">
+            <Avatar src={person.avatar} size="xl" />
+            <Column gap="4">
+              <Heading variant="display-strong-s">{person.name}</Heading>
               <Text variant="body-default-m" onBackground="neutral-weak">
                 {person.role}
+              </Text>
+              <Text variant="body-default-s" onBackground="neutral-weak">
+                {person.location}
               </Text>
             </Column>
           </Flex>
 
-          {/* Social Links with Tracking */}
-          <Flex wrap gap="s">
-            {social.map((item) => (
-              <IconButton
-                key={item.name}
-                href={item.link}
-                icon={item.icon}
-                variant="secondary"
-                size="s"
-                tooltip={item.name}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  trackExternalLink(item.link, item.name);
-                  if (item.name.toLowerCase().includes('email')) {
-                    trackContactForm('email');
-                  } else if (item.name.toLowerCase().includes('phone')) {
-                    trackContactForm('phone');
-                  } else if (item.name.toLowerCase().includes('linkedin')) {
-                    trackContactForm('linkedin');
-                  }
-                }}
-              />
-            ))}
+          {contact.intro.display && (
+            <Text variant="body-default-l" onBackground="neutral-weak">
+              {contact.intro.description}
+            </Text>
+          )}
+
+          <Column gap="s">
+            <Text variant="label-default-s" onBackground="neutral-weak">
+              EMAIL
+            </Text>
+            <Flex gap="s" vertical="center">
+              <Icon name="email" size="s" onBackground="neutral-weak" />
+              <Text variant="body-default-l">
+                <a href={`mailto:${person.email}`} onClick={() => trackContactForm("email")}>
+                  {person.email}
+                </a>
+              </Text>
+            </Flex>
+          </Column>
+
+          {phone && (
+            <Column gap="s">
+              <Text variant="label-default-s" onBackground="neutral-weak">
+                PHONE
+              </Text>
+              <Flex gap="s" vertical="center">
+                <Icon name="phone" size="s" onBackground="neutral-weak" />
+                <Text variant="body-default-l">
+                  <a href={`tel:${phone}`} onClick={() => trackContactForm("phone")}>
+                    {phoneDisplay}
+                  </a>
+                </Text>
+              </Flex>
+            </Column>
+          )}
+
+          <Column gap="s">
+            <Text variant="label-default-s" onBackground="neutral-weak">
+              WEB & SOCIAL
+            </Text>
+            <Flex wrap gap="s">
+              {social
+                .filter((item) => !["Email", "Phone"].includes(item.name))
+                .map((item) => (
+                  <IconButton
+                    key={item.name}
+                    href={item.link}
+                    icon={item.icon}
+                    variant="secondary"
+                    size="s"
+                    tooltip={item.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      trackExternalLink(item.link, item.name);
+                      if (item.name.toLowerCase().includes("linkedin")) trackContactForm("linkedin");
+                    }}
+                  />
+                ))}
+            </Flex>
+          </Column>
+
+          <Flex direction="column" gap="s">
+            <Button
+              variant="tertiary"
+              size="m"
+              prefixIcon="person"
+              fillWidth
+              onClick={handleSaveContact}
+            >
+              Save Contact (.vcf)
+            </Button>
+            <Button
+              href={linkedInUrl}
+              variant="secondary"
+              size="m"
+              prefixIcon="linkedin"
+              fillWidth
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackContactForm("linkedin")}
+            >
+              Connect on LinkedIn
+            </Button>
           </Flex>
         </Column>
 
-        {/* Location */}
-        {contact.location.display && (
-          <Column gap="s">
-            <Flex gap="s" vertical="center">
-              <Icon name="globe" size="s" onBackground="accent-weak" />
-              <Heading variant="heading-strong-s">{contact.location.title}</Heading>
-            </Flex>
-            <Text variant="body-default-m" onBackground="neutral-weak">
-              {contact.location.description}
-            </Text>
-          </Column>
-        )}
+        <Column gap="l" border="neutral-alpha-weak" background="surface" radius="l" padding="l">
+          {contact.location.display && (
+            <Column gap="xs">
+              <Flex gap="s" vertical="center">
+                <Icon name="globe" size="s" onBackground="accent-weak" />
+                <Heading variant="heading-strong-s">{contact.location.title}</Heading>
+              </Flex>
+              <Text variant="body-default-m" onBackground="neutral-weak">
+                {contact.location.description}
+              </Text>
+            </Column>
+          )}
 
-        {/* Availability */}
-        {contact.availability.display && (
-          <Column gap="s">
-            <Flex gap="s" vertical="center">
-              <Icon name="calendar" size="s" onBackground="accent-weak" />
-              <Heading variant="heading-strong-s">{contact.availability.title}</Heading>
-            </Flex>
-            <Text variant="body-default-m" onBackground="neutral-weak">
-              {contact.availability.description}
-            </Text>
-          </Column>
-        )}
+          {contact.availability.display && (
+            <Column gap="xs">
+              <Flex gap="s" vertical="center">
+                <Icon name="calendar" size="s" onBackground="accent-weak" />
+                <Heading variant="heading-strong-s">{contact.availability.title}</Heading>
+              </Flex>
+              <Text variant="body-default-m" onBackground="neutral-weak">
+                {contact.availability.description}
+              </Text>
+            </Column>
+          )}
 
-        {/* Services */}
-        {contact.services.display && (
-          <Column gap="s">
-            <Flex gap="s" vertical="center">
-              <Icon name="tool" size="s" onBackground="accent-weak" />
-              <Heading variant="heading-strong-s">{contact.services.title}</Heading>
-            </Flex>
-            <Flex wrap gap="s" marginTop="s">
-              {contact.services.items.map((service: string, index: number) => (
-                <Tag key={index} size="m" variant="neutral">
-                  {service}
-                </Tag>
-              ))}
-            </Flex>
-          </Column>
-        )}
-      </Flex>
+        </Column>
+      </Column>
 
-      {/* Primary Contact Actions with Tracking */}
-      <Flex direction="column" gap="s" marginBottom="xl">
-        <Button
-          href={`mailto:${person.email}`}
-          variant="primary"
-          size="m"
-          prefixIcon="email"
-          fillWidth
-          onClick={() => trackContactForm('email')}
-        >
-          Send Email
-        </Button>
-        <Button
-          href={social.find(item => item.name === "LinkedIn")?.link}
-          variant="secondary"
-          size="m"
-          prefixIcon="linkedin"
-          fillWidth
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => trackContactForm('linkedin')}
-        >
-          Connect on LinkedIn
-        </Button>
-      </Flex>
-
-      {/* Newsletter signup */}
       {newsletter.display && <Mailchimp newsletter={newsletter} />}
+
+      <style jsx>{`
+        .contact-hero-card {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        @media (max-width: 767px) {
+          .contact-hero-card {
+            min-height: 100dvh;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+          }
+        }
+      `}</style>
     </>
   );
 } 
