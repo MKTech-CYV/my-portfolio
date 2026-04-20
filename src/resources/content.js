@@ -97,7 +97,7 @@ const about = {
     description: (
       <>
         Mobile & Web Developer based in Vietnam, focused on building high-performance, user-centric applications. I bridge design and technology to deliver seamless experiences across platforms.
-      </>
+      </> 
     ),
   },
   work: {
@@ -142,8 +142,8 @@ const about = {
         location: "Da Nang, Vietnam",
         status: "Graduated",
         highlights: [
-          "Class leader of cohort K26TPM2",
-          "Led university-level scientific research project, awarded Consolation Prize",
+          "Class leader - K26TPM2",
+          "Awarded Consolation Prize for university research project",
         ],
         relevantCourses: [
           "Web Development",
@@ -155,12 +155,12 @@ const about = {
         projects: [
           {
             name: "C2C E-Commerce Platform",
-            description: "Customer-to-customer marketplace built with Laravel and Vue.js",
+            description: "Customer-to-customer marketplace built with Laravel & Vue.js",
             tech: ["PHP", "Laravel", "Vue.js", "phpMyAdmin"]
           },
           {
             name: "Electronics E-Commerce Website",
-            description: "Online store for electronic devices built with Windows Forms",
+            description: "Desktop-based online store built with .NET.",
             tech: ["C#", ".NET Framework", "SQL Server"]
           }
         ]
