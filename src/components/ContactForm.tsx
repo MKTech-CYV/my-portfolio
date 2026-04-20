@@ -55,7 +55,7 @@ export function ContactForm() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    trackContactForm("save-contact");
+    trackContactForm("email");
   };
 
   // FAQ Schema for better SEO
