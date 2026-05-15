@@ -62,10 +62,10 @@ const home = {
     display: true,
     title: (
       <>
-        Recent project: <strong className="ml-4">PHATDAT eCITIZEN</strong>
+        Featured project: <strong className="ml-4">MK Widget Card</strong>
       </>
     ),
-    href: "/projects/phat-dat-ecitizen",
+    href: "/projects/mk-widget-ecard",
   },
   subline: (
     <>
@@ -401,4 +401,119 @@ const eCard = {
   },
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery, contact, eCard };
+const privacy = {
+  title: "Privacy Policy – Tran Minh Khoi Portfolio",
+  description: "Privacy Policy for the Tran Minh Khoi portfolio website",
+  lastUpdated: "May 15, 2026",
+  content: (
+    <>
+      <p>
+        This Privacy Policy explains how I, Tran Minh Khoi, handle information when you visit
+        tranminhkhoi.dev, browse my portfolio, contact me, or use features on this website.
+      </p>
+      <p>
+        This policy applies only to this portfolio website. It does not apply to mobile apps,
+        client projects, third-party websites, or services linked from this website.
+      </p>
+
+      <h3>Information I Collect</h3>
+      <p>
+        I only collect information that is needed to operate this website, understand general
+        performance, and respond to people who choose to contact me.
+      </p>
+      <ul>
+        <li>Contact information you submit, such as your email address.</li>
+        <li>Basic technical information, such as browser type, device type, pages visited, referrer, and approximate usage data.</li>
+        <li>Theme and interface preferences stored locally in your browser.</li>
+        <li>Authentication status for password-protected portfolio pages, when applicable.</li>
+      </ul>
+
+      <h3>How I Use Information</h3>
+      <p>
+        I use this information to respond to your messages, maintain the website, improve
+        performance and usability, protect restricted pages, and understand which parts of the
+        portfolio are useful to visitors.
+      </p>
+
+      <h3>Contact Form and Email</h3>
+      <p>
+        If you submit your email through the contact section, it is used to send you a confirmation
+        message and to notify me so I can reply. Please avoid sending sensitive personal,
+        financial, medical, or confidential business information through the form.
+      </p>
+
+      <h3>Analytics</h3>
+      <p>
+        This website may use Google Analytics when analytics is enabled. Analytics helps me
+        understand traffic, page views, device types, and general usage patterns. This information
+        is used in aggregate and is not intended to identify you personally.
+      </p>
+
+      <h3>Cookies and Local Storage</h3>
+      <p>
+        The website may use cookies or similar browser storage for analytics, password-protected
+        routes, and interface preferences such as theme settings. You can control cookies through
+        your browser settings, but some features may not work as expected if they are disabled.
+      </p>
+
+      <h3>Third-Party Services</h3>
+      <p>
+        I may use trusted third-party services to host, deliver, analyze, and support this website.
+        These providers process information only as needed to provide their services.
+      </p>
+      <ul>
+        <li>Vercel, for hosting and website delivery.</li>
+        <li>Google Analytics, for website analytics when enabled.</li>
+        <li>Resend, for sending contact form emails.</li>
+        <li>External profile or social links, such as GitHub, LinkedIn, PayPal, or other websites you choose to open.</li>
+      </ul>
+
+      <h3>Sharing Information</h3>
+      <p>
+        I do not sell your personal information. I may share limited information with service
+        providers that help operate this website, when required by law, or when necessary to
+        protect the website, visitors, or my legal rights.
+      </p>
+
+      <h3>Data Retention</h3>
+      <p>
+        Contact emails may be kept for as long as needed to respond to your message, manage
+        collaboration opportunities, or keep reasonable business records. Analytics and hosting
+        logs may be retained according to the policies of the relevant service providers.
+      </p>
+
+      <h3>Your Choices</h3>
+      <p>
+        You can choose not to submit the contact form, disable cookies in your browser, or contact
+        me to request access, correction, or deletion of personal information you have provided to
+        me through this website.
+      </p>
+
+      <h3>Security</h3>
+      <p>
+        I take reasonable steps to protect information handled through this website. However, no
+        method of transmission or storage on the internet can be guaranteed to be completely secure.
+      </p>
+
+      <h3>External Links</h3>
+      <p>
+        This website includes links to third-party websites and profiles. I am not responsible for
+        the content, security, or privacy practices of those external websites.
+      </p>
+
+      <h3>Changes to This Policy</h3>
+      <p>
+        I may update this Privacy Policy from time to time. Any changes will be posted on this page
+        with an updated date.
+      </p>
+
+      <h3>Contact</h3>
+      <p>
+        If you have questions about this Privacy Policy or how this website handles information,
+        please contact me at <a href={`mailto:${person.email}`}>{person.email}</a>.
+      </p>
+    </>
+  ),
+};
+
+export { person, social, newsletter, home, about, blog, work, gallery, contact, eCard, privacy };

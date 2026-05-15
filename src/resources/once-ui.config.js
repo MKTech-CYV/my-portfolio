@@ -10,6 +10,7 @@ const routes = {
   "/gallery": false,
   "/contact": true,
   "/e-card": true,
+  "/privacy": true,
 };
 
 const display = {

@@ -22,10 +22,17 @@ export const Footer = () => {
         horizontal="space-between"
         vertical="center"
       >
-        <Text variant="body-default-s" onBackground="neutral-strong">
-          <Text onBackground="neutral-weak">© {currentYear} All rights reserved /</Text>
-          <Text paddingX="4">{person.name}</Text>
-        </Text>
+        <Flex gap="16" vertical="center" mobileDirection="column" horizontal="center">
+          <Text variant="body-default-s" onBackground="neutral-strong">
+            <Text onBackground="neutral-weak">© {currentYear} All rights reserved /</Text>
+            <Text paddingX="4">{person.name}</Text>
+          </Text>
+          <SmartLink href="/privacy" style={{ textDecoration: 'none' }}>
+            <Text variant="body-default-s" onBackground="neutral-weak">
+              Privacy Policy
+            </Text>
+          </SmartLink>
+        </Flex>
         <Flex gap="16">
           {social.map(
             (item) =>

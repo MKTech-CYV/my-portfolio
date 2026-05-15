@@ -9,6 +9,7 @@ import {
   HiArrowRight,
   HiOutlineEye,
   HiOutlineEyeSlash,
+  HiOutlineLockClosed,
   HiOutlineDocument,
   HiOutlineGlobeAsiaAustralia,
   HiOutlineRocketLaunch,
@@ -22,7 +23,7 @@ import {
   PiImageDuotone,
 } from "react-icons/pi";
 
-import { FaDiscord, FaGithub, FaLinkedin, FaX, FaThreads, FaPhone, FaPaypal, FaHandshake, FaQrcode } from "react-icons/fa6";
+import { FaDiscord, FaGithub, FaLinkedin, FaX, FaThreads, FaPhone, FaPaypal, FaHandshake, FaQrcode, FaAppStoreIos } from "react-icons/fa6";
 
 export const iconLibrary: Record<string, IconType> = {
   arrowUpRight: HiArrowUpRight,
@@ -39,12 +40,14 @@ export const iconLibrary: Record<string, IconType> = {
   discord: FaDiscord,
   eye: HiOutlineEye,
   eyeOff: HiOutlineEyeSlash,
+  lock: HiOutlineLockClosed,
   github: FaGithub,
   phone: FaPhone,
   paypal: FaPaypal,
   linkedin: FaLinkedin,
   x: FaX,
   qrCode: FaQrcode,
+  appStore: FaAppStoreIos,
   handshake: FaHandshake,
   threads: FaThreads,
   arrowUpRightFromSquare: HiArrowTopRightOnSquare,

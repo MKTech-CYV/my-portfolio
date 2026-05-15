@@ -4,7 +4,6 @@ export function Analytics() {
   const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID
 
   if (!GA_MEASUREMENT_ID) {
-    console.warn('Google Analytics ID not found. Please add NEXT_PUBLIC_GA_ID to your .env.local file.')
     return null
   }
 

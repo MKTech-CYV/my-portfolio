@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import '@once-ui-system/core/css/styles.css';
 import '@once-ui-system/core/css/tokens.css';
 import '@/resources/custom.css'
@@ -83,8 +84,9 @@ export default async function RootLayout({
         <meta httpEquiv="X-Frame-Options" content="DENY" />
         <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
-        <script
+        <Script
           id="theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -242,7 +244,9 @@ export default async function RootLayout({
         />
         
         {/* Web Vitals monitoring for performance optimization */}
-        <script
+        <Script
+          id="web-vitals"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -320,11 +324,11 @@ export default async function RootLayout({
           }}
         />
         
-        <Analytics />
-        <OrganizationSchema />
         <CustomStyles />
       </head>
       <Providers>
+        <Analytics />
+        <OrganizationSchema />
         <Column as="body" background="page" fillWidth style={{minHeight: "100vh"}} margin="0" padding="0" horizontal="center">
           <Background
             position="fixed"

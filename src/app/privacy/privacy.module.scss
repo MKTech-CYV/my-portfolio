@@ -1,0 +1,35 @@
+.content {
+  h3 {
+    margin-top: var(--static-space-24);
+    margin-bottom: var(--static-space-12);
+    font-size: var(--static-font-size-20);
+    font-weight: var(--static-font-weight-bold);
+    color: var(--neutral-on-background-strong);
+  }
+
+  p {
+    margin-bottom: var(--static-space-12);
+    line-height: var(--static-line-height-m);
+    color: var(--neutral-on-background-medium);
+  }
+
+  ul {
+    margin-bottom: var(--static-space-12);
+    padding-left: var(--static-space-20);
+    list-style-type: disc;
+
+    li {
+      margin-bottom: var(--static-space-4);
+      color: var(--neutral-on-background-medium);
+    }
+  }
+
+  a {
+    color: var(--brand-on-background-medium);
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--brand-on-background-strong);
+    }
+  }
+}

@@ -43,7 +43,12 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = "en-GB" })
 export default TimeDisplay;
 
 export const Header = () => {
-  const pathname = usePathname() ?? "";
+  const rawPathname = usePathname() ?? "";
+  const [pathname, setPathname] = useState("");
+
+  useEffect(() => {
+    setPathname(rawPathname);
+  }, [rawPathname]);
 
   return (
     <>
@@ -161,6 +166,23 @@ export const Header = () => {
                     prefixIcon="qrCode"
                     href="/e-card"
                     selected={pathname.startsWith("/e-card")}
+                  />
+                </>
+              )}
+              {routes["/privacy"] && (
+                <>
+                  <ToggleButton
+                    className="s-flex-hide"
+                    prefixIcon="lock"
+                    href="/privacy"
+                    label="Privacy"
+                    selected={pathname.startsWith("/privacy")}
+                  />
+                  <ToggleButton
+                    className="s-flex-show"
+                    prefixIcon="lock"
+                    href="/privacy"
+                    selected={pathname.startsWith("/privacy")}
                   />
                 </>
               )}

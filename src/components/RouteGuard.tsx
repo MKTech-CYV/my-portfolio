@@ -12,7 +12,34 @@ interface RouteGuardProps {
 
 const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const pathname = usePathname();
-  const [isRouteEnabled, setIsRouteEnabled] = useState(false);
+
+  const checkRouteEnabled = (path: string | null) => {
+    if (!path) return true;
+
+    const normalizedPathname = path.endsWith('/') && path !== '/' 
+      ? path.slice(0, -1) 
+      : path;
+
+    if (normalizedPathname in routes) {
+      return routes[normalizedPathname as keyof typeof routes];
+    }
+
+    // Hardcoded fallback for privacy to ensure it works even if config is stale
+    if (normalizedPathname === "/privacy") {
+      return true;
+    }
+
+    const dynamicRoutes = ["/blog", "/projects", "/privacy"] as const;
+    for (const route of dynamicRoutes) {
+      if (normalizedPathname?.startsWith(route) && routes[route as keyof typeof routes]) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const [isRouteEnabled, setIsRouteEnabled] = useState(() => checkRouteEnabled(pathname));
   const [isPasswordRequired, setIsPasswordRequired] = useState(false);
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -22,37 +49,19 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   useEffect(() => {
     const performChecks = async () => {
       setLoading(true);
-      setIsRouteEnabled(false);
-      setIsPasswordRequired(false);
-      setIsAuthenticated(false);
-
-      const checkRouteEnabled = () => {
-        if (!pathname) return false;
-
-        if (pathname in routes) {
-          return routes[pathname as keyof typeof routes];
-        }
-
-        const dynamicRoutes = ["/blog", "/projects"] as const;
-        for (const route of dynamicRoutes) {
-          if (pathname?.startsWith(route) && routes[route]) {
-            return true;
-          }
-        }
-
-        return false;
-      };
-
-      const routeEnabled = checkRouteEnabled();
+      
+      const routeEnabled = checkRouteEnabled(pathname);
       setIsRouteEnabled(routeEnabled);
 
-      if (protectedRoutes[pathname as keyof typeof protectedRoutes]) {
+      if (routeEnabled && protectedRoutes[pathname as keyof typeof protectedRoutes]) {
         setIsPasswordRequired(true);
 
         const response = await fetch("/api/check-auth");
         if (response.ok) {
           setIsAuthenticated(true);
         }
+      } else {
+        setIsPasswordRequired(false);
       }
 
       setLoading(false);

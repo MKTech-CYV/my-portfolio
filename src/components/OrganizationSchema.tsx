@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import { person, social, baseURL } from "@/resources";
 
 export function OrganizationSchema() {
@@ -144,9 +145,11 @@ export function OrganizationSchema() {
   };
 
   return (
-    <script
+    <Script
+      id="organization-schema"
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
 } 
+ 

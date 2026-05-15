@@ -1,7 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resendClient: Resend | null = null;
+
+function getResend() {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY is not configured');
+  }
+
+  if (!resendClient) {
+    resendClient = new Resend(process.env.RESEND_API_KEY);
+  }
+
+  return resendClient;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,6 +34,8 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    const resend = getResend();
 
     // Send confirmation email to the contact person
     const confirmationEmail = await resend.emails.send({
